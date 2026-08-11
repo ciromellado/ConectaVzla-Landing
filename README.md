@@ -49,8 +49,6 @@ Esta página es la **landing oficial** del proyecto: su carta de presentación a
 - PWA (Service Worker + Manifest)
 - Web APIs (MediaRecorder, Canvas)
 
-📂 **Repositorio de la app:** [conectavzla](https://github.com/TU-USUARIO/conectavzla)
-
 ---
 
 ## 📸 Capturas
