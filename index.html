@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConectaVzla — Chatea sin dar tu número</title>
+<meta name="description" content="Mensajería privada y sencilla hecha en Venezuela. Sin número telefónico, sin correo, sin recopilar tus datos.">
+<meta property="og:title" content="ConectaVzla — Chatea sin dar tu número">
+<meta property="og:description" content="El mensajero que no te pide nada: sin número, sin correo, sin vender tus datos. 🇻">
+<style>
+    :root {
+        --azul: #0288D1;
+        --verde: #25D366;
+        --verde-osc: #075e54;
+        --texto: #111111;
+        --gris: #667788;
+        --fondo: #f0f2f5;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--texto);
+        background: var(--fondo);
+        line-height: 1.6;
+    }
+
+    /* ---------- BARRA SUPERIOR ---------- */
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.15rem;
+        color: var(--verde-osc);
+    }
+    .nav-brand img { width: 38px; height: 38px; border-radius: 50%; }
+    .nav-btn {
+        background: var(--azul);
+        color: #ffffff;
+        text-decoration: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        background: linear-gradient(135deg, var(--azul), var(--verde-osc));
+        color: #ffffff;
+        text-align: center;
+        padding: 90px 20px 80px;
+    }
+    .hero h1 {
+        font-size: clamp(2rem, 6vw, 3.4rem);
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+    .hero p {
+        max-width: 640px;
+        margin: 0 auto 30px;
+        font-size: 1.15rem;
+        opacity: 0.95;
+    }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+        display: inline-block;
+        padding: 14px 30px;
+        border-radius: 30px;
+        font-weight: 800;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: transform 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-green { background: var(--verde); color: #053b24; }
+    .btn-ghost { border: 2px solid #ffffff; color: #ffffff; }
+    .hero-badges {
+        margin-top: 34px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        font-size: 0.95rem;
+        opacity: 0.95;
+    }
+
+    /* ---------- SECCIONES ---------- */
+    section { padding: 70px 20px; }
+    .inner { max-width: 1000px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .section-sub { text-align: center; color: var(--gris); max-width: 620px; margin: 0 auto 40px; }
+
+    /* ---------- PRIVACIDAD ---------- */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 30px 24px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    }
+    .card .emoji { font-size: 2.6rem; display: block; margin-bottom: 12px; }
+    .card h3 { margin-bottom: 8px; color: var(--verde-osc); }
+    .card p { color: var(--gris); font-size: 0.95rem; }
+
+    /* ---------- CARACTERÍSTICAS ---------- */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .feature {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 18px 10px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    .feature .emoji { display: block; font-size: 1.8rem; margin-bottom: 6px; }
+
+    /* ---------- COMPARATIVA ---------- */
+    .table-wrap { overflow-x: auto; border-radius: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    table { width: 100%; border-collapse: collapse; background: #ffffff; min-width: 520px; }
+    th { background: var(--verde-osc); color: #ffffff; padding: 14px; text-align: center; }
+    th:first-child { text-align: left; }
+    td { padding: 12px 14px; text-align: center; border-top: 1px solid #eef1f4; font-size: 0.95rem; }
+    td:first-child { text-align: left; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8fafc; }
+
+    /* ---------- PASOS ---------- */
+    .steps { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .step {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 26px 22px;
+        width: 260px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    }
+    .step-num {
+        width: 46px; height: 46px;
+        background: var(--azul);
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.3rem; font-weight: 800;
+        margin: 0 auto 14px;
+    }
+    .step h3 { margin-bottom: 8px; }
+    .step p { color: var(--gris); font-size: 0.92rem; }
+
+    /* ---------- HISTORIA ---------- */
+    .historia { background: var(--verde-osc); color: #ffffff; }
+    .historia .inner { max-width: 720px; text-align: center; }
+    .historia blockquote {
+        font-size: 1.25rem;
+        font-style: italic;
+        margin-bottom: 18px;
+        line-height: 1.7;
+    }
+    .historia .firma { opacity: 0.85; font-weight: 700; }
+
+    /* ---------- CTA FINAL ---------- */
+    .cta-final {
+        background: linear-gradient(135deg, var(--verde-osc), var(--azul));
+        text-align: center;
+        color: #ffffff;
+    }
+    .cta-final h2 { font-size: 2rem; margin-bottom: 12px; }
+    .cta-final p { margin-bottom: 28px; opacity: 0.95; }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: #0b141a;
+        color: #99aabb;
+        text-align: center;
+        padding: 30px 20px;
+        font-size: 0.9rem;
+    }
+    footer a { color: var(--verde); text-decoration: none; font-weight: 700; }
+
+    @media (max-width: 640px) {
+        .hero { padding: 60px 16px 55px; }
+        section { padding: 50px 16px; }
+    }
+</style>
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<header class="nav">
+    <div class="nav-brand">
+        <img src="img/logo.webp" alt="Logo ConectaVzla" onerror="this.style.display='none'">
+        ConectaVzla
+    </div>
+    <a class="nav-btn" href="https://ciromellado.github.io/ConectaVzla/" target="_blank" rel="noopener noreferrer" >Entrar a la app</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Chatea sin dar tu número.</h1>
+    <p>ConectaVzla es el mensajero privado y sencillo que no te pide nada: sin número telefónico, sin correo y sin vender tus datos.</p>
+    <div class="hero-buttons">
+        <a class="btn btn-green" href="https://ciromellado.github.io/ConectaVzla/" target="_blank" rel="noopener noreferrer">Probar ahora — es gratis</a>
+        <a class="btn btn-ghost" href="#privacidad">Ver por qué es diferente</a>
+    </div>
+    <div class="hero-badges">
+        <span>🇻 Hecho en Venezuela</span>
+        <span>🆓 100% gratis</span>
+        <span>🔐 Privado por diseño</span>
+    </div>
+</section>
+
+<!-- PRIVACIDAD -->
+<section id="privacidad">
+    <div class="inner">
+        <h2 class="section-title">Tu privacidad no se negocia</h2>
+        <p class="section-sub">Mientras otras apps te piden todo, nosotros no te pedimos nada.</p>
+        <div class="cards">
+            <div class="card">
+                <span class="emoji">📵</span>
+                <h3>Sin número telefónico</h3>
+                <p>Nunca te pediremos tu número. Tu identidad es solo tuya.</p>
+            </div>
+            <div class="card">
+                <span class="emoji">📧</span>
+                <h3>Sin correo electrónico</h3>
+                <p>Solo un nombre de usuario y una contraseña. Nada más.</p>
+            </div>
+            <div class="card">
+                <span class="emoji">🕵️</span>
+                <h3>Sin venta de datos</h3>
+                <p>Cero publicidad, cero rastreo. Tus conversaciones son tuyas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CARACTERÍSTICAS -->
+<section id="features">
+    <div class="inner">
+        <h2 class="section-title">Todo lo que amas del chat</h2>
+        <p class="section-sub">Sencillo por fuera, completo por dentro.</p>
+        <div class="features-grid">
+            <div class="feature"><span class="emoji">⚡</span>Mensajes al instante</div>
+            <div class="feature"><span class="emoji">✓✓</span>Checks de leído</div>
+            <div class="feature"><span class="emoji">🟢</span>En línea y escribiendo</div>
+            <div class="feature"><span class="emoji">🎤</span>Notas de voz</div>
+            <div class="feature"><span class="emoji">📹</span>Videomensajes</div>
+            <div class="feature"><span class="emoji">📷</span>Fotos</div>
+            <div class="feature"><span class="emoji">🌟</span>Novedades 24 h</div>
+            <div class="feature"><span class="emoji">🖼️</span>Avatar propio</div>
+            <div class="feature"><span class="emoji">🔑</span>Tu contraseña</div>
+            <div class="feature"><span class="emoji">📤</span>Respaldo de contactos</div>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARATIVA -->
+<section id="comparativa">
+    <div class="inner">
+        <h2 class="section-title">¿Por qué ConectaVzla?</h2>
+        <p class="section-sub">Compara y decide tú mismo.</p>
+        <div class="table-wrap">
+            <table>
+                <tr><th></th><th>Otra-Aplicación</th><th>ConectaVzla</th></tr>
+                <tr><td>Número telefónico</td><td>❌ Obligatorio</td><td>✅ No lo pide</td></tr>
+                <tr><td>Correo electrónico</td><td>❌ Lo pide</td><td>✅ No lo pide</td></tr>
+                <tr><td>Datos para publicidad</td><td>❌ Sí</td><td>✅ Nunca</td></tr>
+                <tr><td>Tienda de apps</td><td>❌ Obligatoria</td><td>✅ No necesita</td></tr>
+                <tr><td>Peso de descarga</td><td>❌ ~100 MB</td><td>✅ Casi nada</td></tr>
+                <tr><td>Funciona en teléfonos sencillos</td><td>⚠️ A veces</td><td>✅ Sí</td></tr>
+                <tr><td>Hecho con amor local</td><td>❌</td><td>✅ 🇻🇪</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como">
+    <div class="inner">
+        <h2 class="section-title">Listo en 3 pasos</h2>
+        <p class="section-sub">Sin manuales, sin complicaciones.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Crea tu cuenta</h3>
+                <p>Usuario y contraseña. (Crear cuenta nueva) y listo. Sin número, sin correo.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Agrega tu contacto</h3>
+                <p>Con el nombre de usuario registrado de tu persona especial.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Chatea en tiempo real</h3>
+                <p>Mensajes, voces, videos, fotos y novedades al instante.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HISTORIA -->
+<section class="historia">
+    <div class="inner">
+        <blockquote>"ConectaVzla nació de un deseo simple: que una familia pudiera estar cerca sin entregar sus datos a nadie. Hecha en Venezuela, con corazón, para las personas que importan."</blockquote>
+        <p class="firma">— Kharla Web Solution 🇻🇪</p>
+    </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+    <h2>¿Listo para conectar sin entregar nada?</h2>
+    <p>Únete gratis en menos de 10 segundos.</p>
+    <a class="btn btn-green" href="https://ciromellado.github.io/ConectaVzla/" target="_blank" rel="noopener noreferrer">Crear mi cuenta gratis</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>ConectaVzla · Kharla Web Solution · Hecho con 💚 en Venezuela</p>
+    <p style="margin-top:6px;"><a href="https://ciromellado.github.io/ConectaVzla/" target="_blank" rel="noopener noreferrer">Entrar a la aplicación</a></p>
+</footer>
+
+</body>
+</html>
