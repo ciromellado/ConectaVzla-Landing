@@ -2,11 +2,6 @@
 
 > **Chatea sin dar tu número.** El mensajero privado y sencillo que no te pide nada: sin número telefónico, sin correo y sin vender tus datos.
 
-🌐 **Ver en vivo:** [https://TU-USUARIO.github.io/conectavzla-landing/](https://TU-USUARIO.github.io/conectavzla-landing/)
-📱 **Usar la app:** [https://TU-USUARIO.github.io/conectavzla/](https://TU-USUARIO.github.io/conectavzla/)
-
----
-
 ## ✨ ¿Qué es ConectaVzla?
 
 ConectaVzla es una aplicación de mensajería instantánea **hecha en Venezuela** 🇻🇪, diseñada para conectar a las personas que importan **sin entregar tus datos personales a nadie**.
